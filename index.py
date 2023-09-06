@@ -1,4 +1,6 @@
 import streamlit as st
+from streamlit_chat import message
+import requests
 
 text_input = st.text_input(
         "Enter some text 👇")
@@ -7,19 +9,9 @@ if text_input:
     st.write("You entered: ", text_input)
 
 
-from streamlit_chat import message
-import requests
-
-st.set_page_config(
-    page_title="Streamlit Chat - Demo",
-    page_icon=":robot:"
-)
-
 API_URL = "https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill"
 headers = {"Authorization": st.secrets['api_key']}
 
-st.header("Streamlit Chat - Demo")
-st.markdown("[Github](https://github.com/ai-yash/st-chat)")
 
 if 'generated' not in st.session_state:
     st.session_state['generated'] = []
