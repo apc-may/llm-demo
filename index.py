@@ -9,7 +9,7 @@ from requests.exceptions import RequestException, ConnectionError, HTTPError, Ti
 
 #if text_input:
 #    st.write("You entered: ", text_input)
-token = dbutils.notebook.entry_point.getDbutils().notebook().getContext().apiToken().getOrElse(None)
+token = "dapib7d7c12712fb4730923210d5425d054f-3"
 url = "http://127.0.0.1:7777/"
 
 
