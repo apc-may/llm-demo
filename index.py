@@ -51,10 +51,10 @@ if question != "":
 
     #response.raise_for_status()
   except ConnectionError as ce:
-    st.write("Connection Error:"+ce)
+    st.write("Connection Error:",ce)
   except HTTPError as he:
-    st.write("HTTP Error:"+ he)
+    st.write("HTTP Error:",he)
   except Timeout as te:
-    st.write("Timeout Error:"+ te)
+    st.write("Timeout Error:", te)
   except RequestException as re:
-    st.write("Error:"+ re)
+    st.write("Error:", re)
