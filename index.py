@@ -10,30 +10,12 @@ from requests.exceptions import RequestException, ConnectionError, HTTPError, Ti
 #if text_input:
 #    st.write("You entered: ", text_input)
 token = "dapib7d7c12712fb4730923210d5425d054f-3"
-url = "http://10.139.64.4:7779/"
+url = "https://adb-8230146944114703.3.azuredatabricks.net/driver-proxy-api/o/0/0906-022413-z23tg09p/7779"
 temperature=1.0 
 max_new_tokens=1024
 
 st.title('Databricks Q&A bot')
 #st.header('Databricks Q&A bot')
-
-def request_model(prompt, temperature=1.0, max_new_tokens=1024):
-  #token = dbutils.notebook.entry_point.getDbutils().notebook().getContext().apiToken().getOrElse(None) # TODO: fill in with your Databricks personal access token that can access the cluster that runs this driver proxy notebook
-  token = "dapib7d7c12712fb4730923210d5425d054f-3"
-  url = "http://10.139.64.4:7779/" # TODO: fill in with the driver_proxy_api output above
-  
-  headers = {
-      "Content-Type": "application/json",
-      "Authentication": f"Bearer {token}"
-  }
-  data = {
-    "prompt": prompt,
-    "temperature": temperature,
-    "max_new_tokens": max_new_tokens,
-  }
-
-  response = requests.post(url, headers=headers, data=json.dumps(data))
-  return response.text
 
 def generate_answer(question):
   # Driver Proxyと異なるクラスター、ローカルからDriver Proxyにアクセスする際にはパーソナルアクセストークンを設定してください
