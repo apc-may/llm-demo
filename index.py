@@ -44,7 +44,7 @@ if question != "":
   try:
     response = requests.get(url)
     st.write(response)
-    answer = request_model(question)
+    answer = generate_answer(question)
 
     #answer = answer["answer"]
     #source = answer["source"]
