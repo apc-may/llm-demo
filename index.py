@@ -35,8 +35,9 @@ def generate_answer(question):
   #     f"Request failed with status {response.status_code}, {response.text}"
   #  )
   
-  response_json = response.json()
-  return response_json
+  return response
+  #response_json = response.json()
+  #return response_json
 
 question = st.text_input("**質問**")
 
