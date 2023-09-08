@@ -40,6 +40,7 @@ question = st.text_input("**質問**")
 if question != "":
   try:
     response = requests.get(url)
+    st.write(response)
     answer = generate_answer(question)
 
     answer = answer["answer"]
@@ -50,10 +51,10 @@ if question != "":
 
     #response.raise_for_status()
   except ConnectionError as ce:
-    print("Connection Error:", ce)
+    st.write("Connection Error:"+ce)
   except HTTPError as he:
-    print("HTTP Error:", he)
+    st.write("HTTP Error:"+ he)
   except Timeout as te:
-    print("Timeout Error:", te)
+    st.write("Timeout Error:"+ te)
   except RequestException as re:
-    print("Error:", re)
+    st.write("Error:"+ re)
