@@ -38,10 +38,22 @@ def generate_answer(question):
 question = st.text_input("**質問**")
 
 if question != "":
-  response = generate_answer(question)
+  try:
+    response = requests.get(url)
+    answer = generate_answer(question)
 
-  answer = response["answer"]
-  source = response["source"]
+    answer = answer["answer"]
+    source = answer["source"]
 
-  st.write(f"**回答:** {answer}")
-  st.write(f"**ソース:** [{source}]({source})")
+    st.write(f"**回答:** {answer}")
+    st.write(f"**ソース:** [{source}]({source})")
+
+    #response.raise_for_status()
+  except ConnectionError as ce:
+    print("Connection Error:", ce)
+  except HTTPError as he:
+    print("HTTP Error:", he)
+  except Timeout as te:
+    print("Timeout Error:", te)
+  except RequestException as re:
+    print("Error:", re)
