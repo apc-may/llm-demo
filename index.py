@@ -9,7 +9,8 @@ from requests.exceptions import RequestException, ConnectionError, HTTPError, Ti
 
 #if text_input:
 #    st.write("You entered: ", text_input)
-
+token = dbutils.notebook.entry_point.getDbutils().notebook().getContext().apiToken().getOrElse(None)
+url = "http://127.0.0.1:7777/"
 
 
 st.title('Databricks Q&A bot')
@@ -17,9 +18,6 @@ st.title('Databricks Q&A bot')
 
 def generate_answer(question):
   # Driver Proxyと異なるクラスター、ローカルからDriver Proxyにアクセスする際にはパーソナルアクセストークンを設定してください
-  token = "" 
-  url = "http://127.0.0.1:7777/"
-
   headers = {
       "Content-Type": "application/json",
       "Authentication": f"Bearer {token}"
