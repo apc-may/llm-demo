@@ -10,7 +10,7 @@ from requests.exceptions import RequestException, ConnectionError, HTTPError, Ti
 #if text_input:
 #    st.write("You entered: ", text_input)
 token = "dapib7d7c12712fb4730923210d5425d054f-3"
-url = "http://127.0.0.1:7779/"
+url = "https://adb-8230146944114703.3.azuredatabricks.net/driver-proxy-api/o/0/0906-022413-z23tg09p/7779"
 
 
 st.title('Databricks Q&A bot')
