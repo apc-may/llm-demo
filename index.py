@@ -30,10 +30,10 @@ def generate_answer(question):
   }
 
   response = requests.post(url, headers=headers, data=json.dumps(data))
-  if response.status_code != 200:
-    raise Exception(
-       f"Request failed with status {response.status_code}, {response.text}"
-    )
+  #if response.status_code != 200:
+  #  raise Exception(
+  #     f"Request failed with status {response.status_code}, {response.text}"
+  #  )
   
   response_json = response.json()
   return response_json
