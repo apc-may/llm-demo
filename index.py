@@ -43,11 +43,11 @@ if question != "":
     st.write(response)
     answer = generate_answer(question)
 
-    answer = answer["answer"]
-    source = answer["source"]
+    #answer = answer["answer"]
+    #source = answer["source"]
 
     st.write(f"**回答:** {answer}")
-    st.write(f"**ソース:** [{source}]({source})")
+    #st.write(f"**ソース:** [{source}]({source})")
 
     #response.raise_for_status()
   except ConnectionError as ce:
