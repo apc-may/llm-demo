@@ -2,6 +2,8 @@ import streamlit as st
 import numpy as np 
 import json
 import requests
+from requests.exceptions import RequestException, ConnectionError, HTTPError, Timeout
+
 #text_input = st.text_input(
 #        "Enter some text 👇")
 
