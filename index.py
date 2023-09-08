@@ -11,7 +11,8 @@ from requests.exceptions import RequestException, ConnectionError, HTTPError, Ti
 #    st.write("You entered: ", text_input)
 token = "dapib7d7c12712fb4730923210d5425d054f-3"
 url = "http://10.139.64.4:7779/"
-
+temperature=1.0 
+max_new_tokens=1024
 
 st.title('Databricks Q&A bot')
 #st.header('Databricks Q&A bot')
@@ -23,7 +24,9 @@ def generate_answer(question):
       "Authentication": f"Bearer {token}"
   }
   data = {
-    "prompt": question
+    "prompt": question,
+    "temperature": temperature,
+    "max_new_tokens": max_new_tokens,
   }
 
   response = requests.post(url, headers=headers, data=json.dumps(data))
