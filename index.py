@@ -30,19 +30,17 @@ def generate_answer(question):
   }
 
   response = requests.post(url, headers=headers, data=json.dumps(data))
-  #if response.status_code != 200:
-  #  raise Exception(
-  #     f"Request failed with status {response.status_code}, {response.text}"
-  #  )
+  if response.status_code != 200:
+    raise Exception(
+       f"Request failed with status {response.status_code}, {response.text}"
+    )
   
-  return response
-  #response_json = response.json()
-  #return response_json
+  response_json = response.json()
+  return response_json
 
 question = st.text_input("**質問**")
 
 if question != "":
-  try:
     response = requests.get(url)
     st.write(response)
     answer = generate_answer(question)
@@ -54,11 +52,3 @@ if question != "":
     #st.write(f"**ソース:** [{source}]({source})")
 
     #response.raise_for_status()
-  except ConnectionError as ce:
-    st.write("Connection Error:",ce)
-  except HTTPError as he:
-    st.write("HTTP Error:",he)
-  except Timeout as te:
-    st.write("Timeout Error:", te)
-  except RequestException as re:
-    st.write("Error:", re)
