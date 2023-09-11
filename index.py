@@ -42,13 +42,8 @@ question = st.text_input("**質問**")
 
 if question != "":
     response = requests.get(url)
-    st.write(response)
     answer = generate_answer(question)
 
-    #answer = answer["answer"]
-    #source = answer["source"]
-
     st.write(f"**回答:** {answer}")
-    #st.write(f"**ソース:** [{source}]({source})")
 
     #response.raise_for_status()
