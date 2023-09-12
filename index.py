@@ -68,6 +68,7 @@ from collections import namedtuple
 import matplotlib.collections
 import matplotlib.pyplot as plt
 
+os.environ["OPENAI_API_KEY"] = dbutils.secrets.get("demo-token-ka.abe", "azure_openai_api_key")
 AgentAction = namedtuple('AgentAction', ['tool', 'tool_input', 'log'])
 
 class SimpleStreamlitCallbackHandler(BaseCallbackHandler):
