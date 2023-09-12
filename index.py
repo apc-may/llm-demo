@@ -82,7 +82,7 @@ openai.api_version = "2023-05-15"
 os.environ["OPENAI_API_KEY"] = answer
  
 # デプロイ名
- deployment_id = "ka-abe-gpt-turbo"
+deployment_id = "ka-abe-gpt-turbo"
 #deployment_id = "ka-abe-gpt-4"
 
 # デプロイしたモデル名
