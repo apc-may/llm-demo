@@ -10,7 +10,8 @@ from requests.exceptions import RequestException, ConnectionError, HTTPError, Ti
 #if text_input:
 #    st.write("You entered: ", text_input)
 token = "dapi4462e69374f60947d518dfb63399c947"
-url = "https://adb-7621144643150231.11.azuredatabricks.net/driver-proxy-api/o/0/0908-093558-rn6h8ck8/7779"
+#url = "https://adb-7621144643150231.11.azuredatabricks.net/driver-proxy-api/o/0/0908-093558-rn6h8ck8/7779"
+url = "https://adb-7621144643150231.11.azuredatabricks.net/driver-proxy-api/o/0/0912-055511-23j1leuw/7779"
 temperature=1.0 
 max_new_tokens=1024
 
