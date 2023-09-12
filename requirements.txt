@@ -6,4 +6,3 @@ plotly
 scipy
 langchain
 matplotlib
-dbutils
