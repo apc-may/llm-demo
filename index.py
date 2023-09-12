@@ -67,8 +67,28 @@ import re
 from collections import namedtuple
 import matplotlib.collections
 import matplotlib.pyplot as plt
+import openai
 
-os.environ["OPENAI_API_KEY"] = "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"
+# `Azure`固定
+openai.api_type = "azure"
+ 
+# Azure Open AI のエンドポイント
+openai.api_base = "https://ka-abe-azureopen-api-japan-east.openai.azure.com/"
+ 
+# Azure Docs 記載の項目
+openai.api_version = "2023-05-15"
+ 
+# Azure Open AI のキー
+os.environ["OPENAI_API_KEY"] = answer
+ 
+# デプロイ名
+# deployment_id = "ka-abe-gpt-turbo"
+deployment_id = "ka-abe-gpt-4"
+
+# デプロイしたモデル名
+# model_name = "gpt-35-turbo"
+model_name = "gpt-4"
+
 AgentAction = namedtuple('AgentAction', ['tool', 'tool_input', 'log'])
 
 class SimpleStreamlitCallbackHandler(BaseCallbackHandler):
