@@ -68,7 +68,7 @@ from collections import namedtuple
 import matplotlib.collections
 import matplotlib.pyplot as plt
 
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "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"
 AgentAction = namedtuple('AgentAction', ['tool', 'tool_input', 'log'])
 
 class SimpleStreamlitCallbackHandler(BaseCallbackHandler):
