@@ -86,8 +86,8 @@ deployment_id = "ka-abe-gpt-turbo"
 #deployment_id = "ka-abe-gpt-4"
 
 # デプロイしたモデル名
-# model_name = "gpt-35-turbo"
-model_name = "gpt-3.5"
+model_name = "gpt-35-turbo"
+#model_name = "gpt-4"
 
 AgentAction = namedtuple('AgentAction', ['tool', 'tool_input', 'log'])
 
