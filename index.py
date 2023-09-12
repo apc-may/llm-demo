@@ -14,6 +14,8 @@ url = "https://adb-7621144643150231.11.azuredatabricks.net/driver-proxy-api/o/0/
 temperature=1.0 
 max_new_tokens=1024
 
+st.set_page_config(page_title='Demo')
+                        #, page_icon = favicon, layout = 'wide', initial_sidebar_state = 'auto')
 st.title('Databricks Q&A bot')
 #st.header('Databricks Q&A bot')
 
