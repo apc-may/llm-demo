@@ -4,7 +4,7 @@ import json
 import requests
 from requests.exceptions import RequestException, ConnectionError, HTTPError, Timeout
 import pandas as pd
-import plotly.express as px
+import plotly.figure_factory as ff
 
 #text_input = st.text_input(
 #        "Enter some text 👇")
@@ -51,6 +51,9 @@ if question != "":
 
     st.write(f"**回答:** {answer}")
 
-    fig = px.scatter(answer, x='tpep_pickup_datetime', y='fare_amount', title='Fare Amount from 2019-12-26 00:00:00 to 30 minutes later')
-    fig.show()
+    fig = ff.create_distplot(
+        answer, group_labels, bin_size=[.1, .25, .5])
+
+    # Plot!
+    st.plotly_chart(fig, use_container_width=True)
     #response.raise_for_status()
