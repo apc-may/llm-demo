@@ -102,7 +102,7 @@ class SimpleStreamlitCallbackHandler(BaseCallbackHandler):
 
 def run_agent(df):
     state = {"memory": ConversationBufferMemory(memory_key="chat_history")}
-    agent = create_pandas_dataframe_agent(OpenAI(temperature=0), df, memory=state['memory'], verbose=True, return_intermediate_steps=True)
+    agent = create_pandas_dataframe_agent(OpenAI(temperature=0, deployment_id=deployment_id), df, memory=state['memory'], verbose=True, return_intermediate_steps=True)
     prompt = """
     あなたはPythonでpandasのdataframeを操作しています。dataframeの名前は`df`です。
     あなたは以下のツールを使って、投げかけられた質問に日本語で答える必要があります：
