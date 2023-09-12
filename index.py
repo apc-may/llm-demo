@@ -90,123 +90,97 @@ os.environ["OPENAI_ORGANIZATION"] = "org-tD1A9K2bGhfzsjXS9RGHyfdd"
 # デプロイしたモデル名
 model_name = "gpt-35-turbo"
 #model_name = "gpt-4"
-from streamlit_chat import message
-import pexpect
-import json
-import re
-from collections import namedtuple
 
-# From here down is all the StreamLit UI.
-#st.set_page_config(page_title="📊 ChatCSV", page_icon="📊")
-#st.header("📊 ChatCSV")
-
-if "generated" not in st.session_state:
-    st.session_state["generated"] = []
-
-if "past" not in st.session_state:
-    st.session_state["past"] = []
-    
-    
-from langchain.agents import load_tools, initialize_agent, AgentType, Tool, tool
-from langchain.chat_models import ChatOpenAI
-from langchain.llms import OpenAI
-import pandas as pd
-from langchain.agents import create_pandas_dataframe_agent
-from langchain.memory import ConversationBufferMemory
-from langchain import PromptTemplate
-from langchain.callbacks.base import BaseCallbackHandler
-from langchain.schema import (
-    HumanMessage,
-)
-from typing import Any, Dict, List
-
-df = pd.DataFrame([])
-data = st.file_uploader(label='Upload CSV file', type='csv')
-
-# st.download_button(label='サンプルデータをダウンロードする',data='https://drive.google.com/file/d/1wuSx35y3-hjZew1XhrM78xlAGIDTd4fp/view?usp=drive_open',mime='text/csv')
-
-header_num = st.number_input(label='Header position',value=0)
-index_num = st.number_input(label='Index position',value=2)
-index_list = [i for i in range(index_num)]
-
-if data:
-    df = pd.read_csv(data,header=header_num,index_col=index_list)
-    st.dataframe(df)
-
-def get_text():
-    input_text = st.text_input("You: ", "Tell me the average of the revenue", key="input")
-    return input_text
-
-def get_state(): 
-     if "state" not in st.session_state: 
-         st.session_state.state = {"memory": ConversationBufferMemory(memory_key="chat_history")} 
-     return st.session_state.state 
-state = get_state()
-
-prompt = PromptTemplate(
-    input_variables=["chat_history","input"], 
-    template='Based on the following chat_history, Please reply to the question in format of markdown. history: {chat_history}. question: {input}'
-)
+AgentAction = namedtuple('AgentAction', ['tool', 'tool_input', 'log'])
 
 class SimpleStreamlitCallbackHandler(BaseCallbackHandler):
-    """ Copied only streaming part from StreamlitCallbackHandler """
-    
     def __init__(self) -> None:
         self.tokens_area = st.empty()
         self.tokens_stream = ""
         
     def on_llm_new_token(self, token: str, **kwargs: Any) -> None:
-        """Run on new LLM token. Only available when streaming is enabled."""
         self.tokens_stream += token
         self.tokens_area.markdown(self.tokens_stream)
 
-ask_button = ""
+def run_agent(df):
+    state = {"memory": ConversationBufferMemory(memory_key="chat_history")}
+    agent = create_pandas_dataframe_agent(OpenAI(temperature=0), df, 
+    memory=state['memory'], verbose=True, return_intermediate_steps=True)
+    prompt = """
+    あなたはPythonでpandasのdataframeを操作しています。dataframeの名前は`df`です。
+    あなたは以下のツールを使って、投げかけられた質問に日本語で答える必要があります：
 
-if df.shape[0] > 0:
-    agent = create_pandas_dataframe_agent(OpenAI(temperature=0, max_tokens=1000), df, memory=state['memory'], verbose=True, return_intermediate_steps=True)
-    user_input = get_text()
-    ask_button = st.button('ask')
-else:
-    pass
+    python_repl_ast： Pythonのシェルです。python_repl_ast：Pythonのシェルです。入力は有効なpythonコマンドである必要があります。このツールを使用すると、時々出力が省略されます - あなたの答えにそれを使用する前に、それが省略されたように見えないことを確認してください。
 
-language = st.selectbox('language',['English','日本語'])
-AgentAction = namedtuple('AgentAction', ['tool', 'tool_input', 'log'])
+    与えられたデータから、以下の分析をステップバイステップで行ってください。
 
-def format_action(action, result):
-    action_fields = '\n'.join([f"{field}: {getattr(action, field)}"+'\n' for field in action._fields])
-    return f"{action_fields}\nResult: {result}\n"
+    Step.1 データの要約を説明する
 
-if ask_button:
-    st.write("Input:", user_input)
-    with st.spinner('typing...'):
-        prefix = f'You are the best explainer. please answer in {language}. User: '
-        handler = SimpleStreamlitCallbackHandler()
-        response = agent({"input":user_input})
+    Step.2 基本統計量を確認する
+    ここでは、平均値、中央値、標準偏差、最大値、最小値など、基本的な統計量を確認します。
+
+    Step.3 データ分布の確認
+    代表的なカラムを使って、散布図を描画してください。
+
+    Step.4 分析のまとめと提案
+    上記の結果を踏まえて、データの分析概要と、そこから得られる提案や仮説があれば提示してください。
+    
+    
+    なお、質問と答えについては、次の形式を使用してください：
+
+    質問：あなたが答えなければならない入力の質問
+    思考：何をすべきか常に考えておくこと
+    行動：取るべき行動。[python_repl_ast]のいずれかであるべきです。
+    Action Input：アクションへの入力
+    観察: アクションの結果
+    ... （このThought/Action/Action Input/ObservationはN回繰り返すことができます。）
+    思考： 最終的な答えがわかった
+    最終的な答え：入力された元の質問に対する最終的な答え
+
+
+    """
+    result = agent({"input": prompt})
+    return result
+
+st.title('Langchain Agent')
+
+uploaded_file = st.file_uploader("CSVファイルをアップロードしてください。", type=['csv'])
+![Something went wrong]()
+
+if uploaded_file is not None:
+    df = pd.read_csv(uploaded_file)
+    st.dataframe(df)
+    if st.button('実行'):
+        with st.spinner('Agent is running...'):
+            result = run_agent(df)
+            answer = json.dumps(result['output'],ensure_ascii=False).replace('"', '')
+            print(answer)
+            st.write("分析結果:"+answer)
         
-        
-        actions = response['intermediate_steps']
+        actions = result['intermediate_steps']
         actions_list = []
         for action, result in actions:
             text = f"""Tool: {action.tool}\n
-               Input: {action.tool_input}\n
-               Log: {action.log}\nResult: {result}\n
+                Input: {action.tool_input}\n
+                Log: {action.log}\nResult: {result}\n
             """
+            if action.log is not None:
+                st.write(action.log)
+            if result is not None:
+                st.set_option('deprecation.showPyplotGlobalUse', False)
+                if isinstance(result, matplotlib.collections.PathCollection):                    
+                    st.pyplot()
+                elif isinstance(result, matplotlib.axes.Axes):
+                    st.pyplot()
+                else:
+                    st.write(result)
+
+            
             text = re.sub(r'`[^`]+`', '', text)
             actions_list.append(text)
-            
-        answer = json.dumps(response['output'],ensure_ascii=False).replace('"', '')
-        if language == 'English':
-            with st.expander('ℹ️ Show details', expanded=False):
-                st.write('\n'.join(actions_list))
-        else:
-            with st.expander('ℹ️ 詳細を見る', expanded=False):
-                st.write('\n'.join(actions_list))
-            
-        st.session_state.past.append(user_input)
-        st.session_state.generated.append(answer)
         
-if st.session_state["generated"]:
+        with st.expander('ログ', expanded=False):
+            st.write('\n'.join(actions_list))
 
-    for i in range(len(st.session_state["generated"]) - 1, -1, -1):
-        message(st.session_state["generated"][i], key=str(i))
-        message(st.session_state["past"][i], is_user=True, key=str(i) + "_user")
+
+        # st.write(answer)
