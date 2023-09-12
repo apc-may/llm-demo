@@ -145,7 +145,6 @@ def run_agent(df):
 st.title('Langchain Agent')
 
 uploaded_file = st.file_uploader("CSVファイルをアップロードしてください。", type=['csv'])
-![Something went wrong]()
 
 if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
