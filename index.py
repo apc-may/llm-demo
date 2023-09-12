@@ -82,12 +82,12 @@ openai.api_version = "2023-05-15"
 os.environ["OPENAI_API_KEY"] = answer
  
 # デプロイ名
-# deployment_id = "ka-abe-gpt-turbo"
-deployment_id = "ka-abe-gpt-4"
+ deployment_id = "ka-abe-gpt-turbo"
+#deployment_id = "ka-abe-gpt-4"
 
 # デプロイしたモデル名
 # model_name = "gpt-35-turbo"
-model_name = "gpt-4"
+model_name = "gpt-3.5"
 
 AgentAction = namedtuple('AgentAction', ['tool', 'tool_input', 'log'])
 
