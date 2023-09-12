@@ -3,6 +3,8 @@ import numpy as np
 import json
 import requests
 from requests.exceptions import RequestException, ConnectionError, HTTPError, Timeout
+import pandas as pd
+import plotly.express as px
 
 #text_input = st.text_input(
 #        "Enter some text 👇")
@@ -49,4 +51,6 @@ if question != "":
 
     st.write(f"**回答:** {answer}")
 
+    fig = px.scatter(answer, x='tpep_pickup_datetime', y='fare_amount', title='Fare Amount from 2019-12-26 00:00:00 to 30 minutes later')
+    fig.show()
     #response.raise_for_status()
