@@ -8,3 +8,4 @@ langchain
 matplotlib
 openai
 tabulate
+streamlit_chat
