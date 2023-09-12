@@ -79,7 +79,7 @@ import matplotlib.pyplot as plt
 #openai.api_version = "2023-05-15"
  
 # Azure Open AI のキー
-os.environ["OPENAI_API_KEY"] =  "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"
+os.environ["OPENAI_API_KEY"] =  answer
 os.environ["OPENAI_ORGANIZATION"] = "org-tD1A9K2bGhfzsjXS9RGHyfdd"
 #openai.api_key = os.getenv("OPENAI_API_KEY")
 #openai.organization = "org-tD1A9K2bGhfzsjXS9RGHyfdd"
