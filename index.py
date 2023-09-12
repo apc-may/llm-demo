@@ -136,7 +136,7 @@ def run_agent(df):
 
 
     """
-    result = agent({"input": prompt})
+    result = agent({"input": prompt, "deployment_id":deployment_id})
     return result
 
 st.title('Langchain Agent')
