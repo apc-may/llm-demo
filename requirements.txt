@@ -7,3 +7,4 @@ scipy
 langchain
 matplotlib
 openai
+tabulate
