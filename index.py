@@ -67,7 +67,7 @@ import re
 from collections import namedtuple
 import matplotlib.collections
 import matplotlib.pyplot as plt
-#import openai
+import openai
 
 # `Azure`固定
 #openai.api_type = "azure"
@@ -79,8 +79,9 @@ import matplotlib.pyplot as plt
 #openai.api_version = "2023-05-15"
  
 # Azure Open AI のキー
-os.environ["OPENAI_API_KEY"] = "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"
- 
+os.environ["OPENAI_API_KEY"] =  "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"
+openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.organization = "org-tD1A9K2bGhfzsjXS9RGHyfdd"
 # デプロイ名
 #deployment_id = "ka-abe-gpt-turbo"
 #deployment_id = "ka-abe-gpt-4"
