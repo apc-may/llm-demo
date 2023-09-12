@@ -67,22 +67,22 @@ import re
 from collections import namedtuple
 import matplotlib.collections
 import matplotlib.pyplot as plt
-import openai
+#import openai
 
 # `Azure`固定
-openai.api_type = "azure"
+#openai.api_type = "azure"
  
 # Azure Open AI のエンドポイント
-openai.api_base = "https://ka-abe-azureopen-api-japan-east.openai.azure.com/"
+#openai.api_base = "https://ka-abe-azureopen-api-japan-east.openai.azure.com/"
  
 # Azure Docs 記載の項目
-openai.api_version = "2023-05-15"
+#openai.api_version = "2023-05-15"
  
 # Azure Open AI のキー
-os.environ["OPENAI_API_KEY"] = answer
+os.environ["OPENAI_API_KEY"] = "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"
  
 # デプロイ名
-deployment_id = "ka-abe-gpt-turbo"
+#deployment_id = "ka-abe-gpt-turbo"
 #deployment_id = "ka-abe-gpt-4"
 
 # デプロイしたモデル名
@@ -102,7 +102,8 @@ class SimpleStreamlitCallbackHandler(BaseCallbackHandler):
 
 def run_agent(df):
     state = {"memory": ConversationBufferMemory(memory_key="chat_history")}
-    agent = create_pandas_dataframe_agent(OpenAI(temperature=0, deployment_id=deployment_id), df, memory=state['memory'], verbose=True, return_intermediate_steps=True)
+    agent = create_pandas_dataframe_agent(OpenAI(temperature=0, #deployment_id=deployment_id
+                                                 ), df, memory=state['memory'], verbose=True, return_intermediate_steps=True)
     prompt = """
     あなたはPythonでpandasのdataframeを操作しています。dataframeの名前は`df`です。
     あなたは以下のツールを使って、投げかけられた質問に日本語で答える必要があります：
@@ -136,7 +137,9 @@ def run_agent(df):
 
 
     """
-    result = agent({"input": prompt, "deployment_id":deployment_id})
+    result = agent({"input": prompt
+                    #, "deployment_id":deployment_id
+                    })
     return result
 
 st.title('Langchain Agent')
