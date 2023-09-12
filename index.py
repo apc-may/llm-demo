@@ -52,7 +52,7 @@ if question != "":
     st.write(f"**回答:** {answer}")
 
     fig = ff.create_distplot(
-        answer, answer.columns, bin_size=[.1, .25, .5])
+        answer, answer.keys(), bin_size=[.1, .25, .5])
 
     # Plot!
     st.plotly_chart(fig, use_container_width=True)
