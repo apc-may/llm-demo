@@ -5,3 +5,4 @@ pandas
 plotly
 scipy
 langchain
+matplotlib
