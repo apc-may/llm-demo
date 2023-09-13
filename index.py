@@ -167,7 +167,7 @@ ask_button = ""
 language = st.selectbox('language',['English','日本語'])
 
 if df.shape[0] > 0:
-    agent = create_pandas_dataframe_agent(OpenAI(temperature=0, max_tokens=1000), df, memory=state['memory'], verbose=True, return_intermediate_steps=True, max_iterations=10, max_execution_time=10)
+    agent = create_pandas_dataframe_agent(OpenAI(temperature=0, max_tokens=1000), df, memory=state['memory'], verbose=True, return_intermediate_steps=True, max_iterations=20, max_execution_time=20)
     user_input = get_text()
     ask_button = st.button('ask')
 else:
