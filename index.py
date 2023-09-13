@@ -137,7 +137,7 @@ if data:
     st.dataframe(df)
 
 def get_text():
-    input_text = st.text_input("You: ", "Tell me the average of the revenue", key="input")
+    input_text = st.text_input("You: ", "", key="input")
     return input_text
 
 def get_state(): 
@@ -164,6 +164,7 @@ class SimpleStreamlitCallbackHandler(BaseCallbackHandler):
         self.tokens_area.markdown(self.tokens_stream)
 
 ask_button = ""
+language = st.selectbox('language',['English','日本語'])
 
 if df.shape[0] > 0:
     agent = create_pandas_dataframe_agent(OpenAI(temperature=0, max_tokens=1000), df, memory=state['memory'], verbose=True, return_intermediate_steps=True)
@@ -172,7 +173,6 @@ if df.shape[0] > 0:
 else:
     pass
 
-language = st.selectbox('language',['English','日本語'])
 AgentAction = namedtuple('AgentAction', ['tool', 'tool_input', 'log'])
 
 def format_action(action, result):
