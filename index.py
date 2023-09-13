@@ -126,8 +126,10 @@ data = st.file_uploader(label='Upload CSV file', type='csv')
 
 # st.download_button(label='サンプルデータをダウンロードする',data='https://drive.google.com/file/d/1wuSx35y3-hjZew1XhrM78xlAGIDTd4fp/view?usp=drive_open',mime='text/csv')
 
-header_num = st.number_input(label='Header position',value=0)
-index_num = st.number_input(label='Index position',value=2)
+#header_num = st.number_input(label='Header position',value=0)
+#index_num = st.number_input(label='Index position',value=2)
+header_num = 0
+index_num = 1
 index_list = [i for i in range(index_num)]
 
 if data:
