@@ -19,37 +19,37 @@ max_new_tokens=1024
 
 st.set_page_config(page_title='Demo', page_icon = "logo.jpg")
                         #, favicon, layout = 'wide', initial_sidebar_state = 'auto')
-st.title('Databricks Q&A bot')
+#st.title('Databricks Q&A bot')
 #st.header('Databricks Q&A bot')
 
-def generate_answer(question):
+#def generate_answer(question):
   # Driver Proxyと異なるクラスター、ローカルからDriver Proxyにアクセスする際にはパーソナルアクセストークンを設定してください
-  headers = {
-      "Content-Type": "application/json",
-      "Authentication": f"Bearer {token}"
-  }
-  data = {
-    "prompt": question,
-    "temperature": temperature,
-    "max_new_tokens": max_new_tokens,
-  }
+#  headers = {
+#      "Content-Type": "application/json",
+#      "Authentication": f"Bearer {token}"
+#  }
+#  data = {
+#    "prompt": question,
+#    "temperature": temperature,
+#    "max_new_tokens": max_new_tokens,
+#  }
 
-  response = requests.post(url, headers=headers, data=json.dumps(data))
-  if response.status_code != 200:
-    raise Exception(
-       f"Request failed with status {response.status_code}, {response.text}"
-    )
+#  response = requests.post(url, headers=headers, data=json.dumps(data))
+#  if response.status_code != 200:
+#    raise Exception(
+#       f"Request failed with status {response.status_code}, {response.text}"
+#    )
   
-  response_json = response.json()
-  return response_json
+#  response_json = response.json()
+#  return response_json
 
-question = st.text_input("**質問**")
+#question = st.text_input("**質問**")
 
-if question != "":
-    response = requests.get(url)
-    answer = generate_answer(question)
+#if question != "":
+#    response = requests.get(url)
+#    answer = generate_answer(question)
 
-    st.write(f"**回答:** {answer}")
+#    st.write(f"**回答:** {answer}")
 
 
 #Langchain test#
@@ -79,7 +79,7 @@ import matplotlib.pyplot as plt
 #openai.api_version = "2023-05-15"
  
 # Azure Open AI のキー
-os.environ["OPENAI_API_KEY"] =  answer
+os.environ["OPENAI_API_KEY"] =  st.secrets['path']
 os.environ["OPENAI_ORGANIZATION"] = "org-tD1A9K2bGhfzsjXS9RGHyfdd"
 #openai.api_key = os.getenv("OPENAI_API_KEY")
 #openai.organization = "org-tD1A9K2bGhfzsjXS9RGHyfdd"
